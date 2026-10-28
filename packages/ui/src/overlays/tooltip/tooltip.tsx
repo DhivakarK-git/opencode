@@ -62,6 +62,7 @@ export function Tooltip(props: TooltipProps) {
     const expand = !!ref?.querySelector(
       '[aria-haspopup]:not([aria-haspopup="false"]):is([aria-expanded="true"], [data-expanded])',
     )
+
     setState("expand", expand)
 
     if (expand) {
