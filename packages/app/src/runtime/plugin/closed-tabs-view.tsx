@@ -92,8 +92,16 @@ export function ClosedTabsSection(props: { entries: readonly ClosedSideTab[]; on
             type="button"
             data-slot="side-recently-closed-more"
             class="flex h-8 w-fit items-center gap-1 rounded-[6px] px-2 text-[13px] font-[440] text-v2-text-text-muted hover:bg-v2-background-bg-layer-02 hover:text-v2-text-text-base"
-            aria-expanded={state.expanded}
-            onClick={() => setState("expanded", true)}
+            onClick={(event) => {
+              const section = event.currentTarget.parentElement
+              setState("expanded", true)
+              // Wait for the newly revealed rows to mount before moving focus off the removed button.
+              queueMicrotask(() => {
+                section
+                  ?.querySelectorAll<HTMLButtonElement>('[data-slot="side-recently-closed-row"]')
+                  [SECTION_LIMIT]?.focus()
+              })
+            }}
           >
             {language.t("session.tab.showMore")}
             <Icon name="chevron-down" size="small" />
