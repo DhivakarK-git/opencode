@@ -256,8 +256,8 @@ test("the new tab view lists recently closed tabs, expands to the rest, and keep
   await expect(rows.first()).toContainText("closed-00.ts")
   await recent.getByRole("button", { name: "Show more", exact: true }).click()
   await expect(rows).toHaveCount(12)
-  await recent.getByRole("button", { name: "Show less", exact: true }).click()
-  await expect(rows).toHaveCount(5)
+  await expect(recent.getByRole("button", { name: "Show more", exact: true })).toHaveCount(0)
+  await expect(recent.getByRole("button", { name: "Show less", exact: true })).toHaveCount(0)
 
   // Closing the last tab closes the region; it opens on its launchers with that tab listed first.
   const readme = panel.getByRole("tab", { name: "README.md" })

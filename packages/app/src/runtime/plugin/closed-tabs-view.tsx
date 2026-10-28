@@ -87,16 +87,16 @@ export function ClosedTabsSection(props: { entries: readonly ClosedSideTab[]; on
             </button>
           )}
         </For>
-        <Show when={props.entries.length > SECTION_LIMIT}>
+        <Show when={!state.expanded && props.entries.length > SECTION_LIMIT}>
           <button
             type="button"
             data-slot="side-recently-closed-more"
             class="flex h-8 w-fit items-center gap-1 rounded-[6px] px-2 text-[13px] font-[440] text-v2-text-text-muted hover:bg-v2-background-bg-layer-02 hover:text-v2-text-text-base"
             aria-expanded={state.expanded}
-            onClick={() => setState("expanded", (expanded) => !expanded)}
+            onClick={() => setState("expanded", true)}
           >
-            {state.expanded ? language.t("session.tab.showLess") : language.t("session.tab.showMore")}
-            <Icon name="chevron-down" size="small" classList={{ "rotate-180": state.expanded }} />
+            {language.t("session.tab.showMore")}
+            <Icon name="chevron-down" size="small" />
           </button>
         </Show>
       </section>
